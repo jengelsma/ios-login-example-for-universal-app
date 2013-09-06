@@ -20,6 +20,7 @@
 		9E9FD1D717DA502500A3D1EC /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD1D517DA502500A3D1EC /* MainStoryboard_iPad.storyboard */; };
 		9E9FD1DA17DA502500A3D1EC /* GVMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD1D917DA502500A3D1EC /* GVMasterViewController.m */; };
 		9E9FD1DD17DA502500A3D1EC /* GVDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD1DC17DA502500A3D1EC /* GVDetailViewController.m */; };
+		9E9FD1E517DA514E00A3D1EC /* GVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD1E417DA514E00A3D1EC /* GVLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		9E9FD1D917DA502500A3D1EC /* GVMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVMasterViewController.m; sourceTree = "<group>"; };
 		9E9FD1DB17DA502500A3D1EC /* GVDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GVDetailViewController.h; sourceTree = "<group>"; };
 		9E9FD1DC17DA502500A3D1EC /* GVDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVDetailViewController.m; sourceTree = "<group>"; };
+		9E9FD1E317DA514E00A3D1EC /* GVLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVLoginViewController.h; sourceTree = "<group>"; };
+		9E9FD1E417DA514E00A3D1EC /* GVLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 				9E9FD1DB17DA502500A3D1EC /* GVDetailViewController.h */,
 				9E9FD1DC17DA502500A3D1EC /* GVDetailViewController.m */,
 				9E9FD1C117DA502500A3D1EC /* Supporting Files */,
+				9E9FD1E317DA514E00A3D1EC /* GVLoginViewController.h */,
+				9E9FD1E417DA514E00A3D1EC /* GVLoginViewController.m */,
 			);
 			path = MasterDetailWithLogin;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 				9E9FD1CB17DA502500A3D1EC /* GVAppDelegate.m in Sources */,
 				9E9FD1DA17DA502500A3D1EC /* GVMasterViewController.m in Sources */,
 				9E9FD1DD17DA502500A3D1EC /* GVDetailViewController.m in Sources */,
+				9E9FD1E517DA514E00A3D1EC /* GVLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

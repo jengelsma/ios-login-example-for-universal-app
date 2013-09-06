@@ -13,5 +13,5 @@
 @interface GVMasterViewController : UITableViewController
 
 @property (strong, nonatomic) GVDetailViewController *detailViewController;
-
+@property (nonatomic) BOOL authenticated;
 @end

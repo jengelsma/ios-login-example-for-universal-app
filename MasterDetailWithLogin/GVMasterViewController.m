@@ -7,8 +7,8 @@
 //
 
 #import "GVMasterViewController.h"
-
 #import "GVDetailViewController.h"
+#import "GVLoginViewController.h"
 
 @interface GVMasterViewController () {
     NSMutableArray *_objects;
@@ -19,6 +19,7 @@
 
 - (void)awakeFromNib
 {
+    self.authenticated = NO;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
@@ -35,6 +36,28 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(!self.authenticated && [[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
+    {
+        [self performSegueWithIdentifier:@"showLogin" sender:self];
+    }
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSDate *object = _objects[indexPath.row];
+        [[segue destinationViewController] setDetailItem:object];
+    } else if ([[segue identifier] isEqualToString:@"showLogin"]) {
+        GVLoginViewController *loginCtrl = (GVLoginViewController*)[segue destinationViewController];
+        loginCtrl.masterCtrl = self;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,13 +137,5 @@
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
-    }
-}
 
 @end
