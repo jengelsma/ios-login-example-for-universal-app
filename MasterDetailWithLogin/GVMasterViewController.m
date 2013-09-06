@@ -41,7 +41,8 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(!self.authenticated && [[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
+    if(!self.authenticated) 
+       //&& [[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
     {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
     }

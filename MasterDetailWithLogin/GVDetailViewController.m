@@ -7,6 +7,7 @@
 //
 
 #import "GVDetailViewController.h"
+#import "GVLoginViewController.h"
 
 @interface GVDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -45,7 +46,24 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    self.authenticated = NO;
+    //If in portrait mode, display the master view
+    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.navigationItem.leftBarButtonItem.target performSelector:self.navigationItem.leftBarButtonItem.action withObject:self.navigationItem];
+    }
+#pragma clang diagnostic pop
 }
+
+//- (void) viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    if(!self.authenticated && [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+//    {
+//        [self performSegueWithIdentifier:@"showLogin" sender:self];
+//    }
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -53,6 +71,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+if ([[segue identifier] isEqualToString:@"showLogin"]) {
+        GVLoginViewController *loginCtrl = (GVLoginViewController*)[segue destinationViewController];
+        loginCtrl.masterCtrl = self;
+    }
+}
 #pragma mark - Split view
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
