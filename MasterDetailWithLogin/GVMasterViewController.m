@@ -42,9 +42,18 @@
 {
     [super viewWillAppear:animated];
     if(!self.authenticated) 
-       //&& [[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
     {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
+        //[self performSegueWithIdentifier:@"showLogin" sender:self];
+        UIStoryboard *storyboard;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil];
+        } else {
+            storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+        }
+        GVLoginViewController *vc =  (GVLoginViewController*)[storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        vc.masterCtrl = self;
+        [self presentViewController:vc animated:NO completion:nil];
     }
 }
 
@@ -55,10 +64,13 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSDate *object = _objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
-    } else if ([[segue identifier] isEqualToString:@"showLogin"]) {
+    }
+    /*
+    else if ([[segue identifier] isEqualToString:@"showLogin"]) {
         GVLoginViewController *loginCtrl = (GVLoginViewController*)[segue destinationViewController];
         loginCtrl.masterCtrl = self;
     }
+     */
 }
 
 - (void)didReceiveMemoryWarning

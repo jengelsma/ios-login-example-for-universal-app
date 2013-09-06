@@ -55,9 +55,9 @@
         <!--Login View Controller-->
         <scene sceneID="frw-61-pun">
             <objects>
-                <viewController id="fvs-Ar-csj" customClass="GVLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginViewController" id="fvs-Ar-csj" customClass="GVLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="64P-2j-adH">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8NJ-cf-GFe">
@@ -79,7 +79,6 @@
                             <constraint firstItem="8NJ-cf-GFe" firstAttribute="top" secondItem="64P-2j-adH" secondAttribute="top" constant="352" id="5G3-TA-u74"/>
                             <constraint firstItem="8NJ-cf-GFe" firstAttribute="centerX" secondItem="64P-2j-adH" secondAttribute="centerX" type="default" id="Qy2-0W-Gph"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hxf-Dz-lAK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -139,9 +138,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Master" id="40"/>
-                    <connections>
-                        <segue destination="fvs-Ar-csj" kind="modal" identifier="showLogin" animates="NO" id="ITA-FA-aaC"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
             </objects>
