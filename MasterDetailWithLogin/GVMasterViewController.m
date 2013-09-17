@@ -36,6 +36,9 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -53,6 +56,9 @@
         GVLoginViewController *vc =  (GVLoginViewController*)[storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
         vc.masterCtrl = self;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            vc.delegate = self;
+        }
         [self presentViewController:vc animated:NO completion:nil];
     }
 }
@@ -87,6 +93,15 @@
     [_objects insertObject:[NSDate date] atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - MasterViewDelegate
+/* This method will be called in portrait mode when the app is forced to start with the popover open.  
+   This is needed because the MasterView's viewWillAppear method will NOT get recalled after login, like
+   it does in landscape mode. */
+-(void) masterViewPopOverWillAppear
+{
+    NSLog(@"masterViewPopOverWillAppear has been called!");
 }
 
 #pragma mark - Table View

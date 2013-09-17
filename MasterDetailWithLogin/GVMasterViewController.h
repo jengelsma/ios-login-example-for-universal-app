@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol MasterViewDelegate <NSObject>
+@required
+- (void) masterViewPopOverWillAppear;
+@end
 
 @class GVDetailViewController;
 
-@interface GVMasterViewController : UITableViewController
-
+@interface GVMasterViewController : UITableViewController<MasterViewDelegate>
 @property (strong, nonatomic) GVDetailViewController *detailViewController;
 @property (nonatomic) BOOL authenticated;
+-(void) masterViewPopOverWillAppear;
 @end

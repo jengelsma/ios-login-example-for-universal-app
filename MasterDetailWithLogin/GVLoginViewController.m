@@ -37,7 +37,13 @@
 
 - (IBAction)loginPressed:(id)sender {
     self.masterCtrl.authenticated = YES;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
+        && UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    {
+        [self.delegate masterViewPopOverWillAppear];
+    }
     [self dismissViewControllerAnimated:NO completion:nil];
+    
 }
 
 @end
