@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9E32DD16180ECA2A00D38DD4 /* GVLoadingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E32DD15180ECA2A00D38DD4 /* GVLoadingDetailViewController.m */; };
 		9E32DD19180ECACF00D38DD4 /* DetailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E32DD18180ECACF00D38DD4 /* DetailViewManager.m */; };
+		9E85464D18119CCA00D2229B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9E85464C18119CCA00D2229B /* README.md */; };
 		9E9FD1BB17DA502500A3D1EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9FD1BA17DA502500A3D1EC /* UIKit.framework */; };
 		9E9FD1BD17DA502500A3D1EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9FD1BC17DA502500A3D1EC /* Foundation.framework */; };
 		9E9FD1BF17DA502500A3D1EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9FD1BE17DA502500A3D1EC /* CoreGraphics.framework */; };
@@ -30,6 +31,7 @@
 		9E32DD15180ECA2A00D38DD4 /* GVLoadingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLoadingDetailViewController.m; sourceTree = "<group>"; };
 		9E32DD17180ECACF00D38DD4 /* DetailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewManager.h; sourceTree = "<group>"; };
 		9E32DD18180ECACF00D38DD4 /* DetailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewManager.m; sourceTree = "<group>"; };
+		9E85464C18119CCA00D2229B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9E9FD1B717DA502500A3D1EC /* MasterDetailWithLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterDetailWithLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9FD1BA17DA502500A3D1EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9E9FD1BC17DA502500A3D1EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,6 +72,7 @@
 		9E9FD1AE17DA502500A3D1EC = {
 			isa = PBXGroup;
 			children = (
+				9E85464C18119CCA00D2229B /* README.md */,
 				9E9FD1C017DA502500A3D1EC /* MasterDetailWithLogin */,
 				9E9FD1B917DA502500A3D1EC /* Frameworks */,
 				9E9FD1B817DA502500A3D1EC /* Products */,
@@ -185,6 +188,7 @@
 				9E9FD1C517DA502500A3D1EC /* InfoPlist.strings in Resources */,
 				9E9FD1CD17DA502500A3D1EC /* Default.png in Resources */,
 				9E9FD1CF17DA502500A3D1EC /* Default@2x.png in Resources */,
+				9E85464D18119CCA00D2229B /* README.md in Resources */,
 				9E9FD1D117DA502500A3D1EC /* Default-568h@2x.png in Resources */,
 				9E9FD1D417DA502500A3D1EC /* MainStoryboard_iPhone.storyboard in Resources */,
 				9E9FD1D717DA502500A3D1EC /* MainStoryboard_iPad.storyboard in Resources */,

@@ -1,6 +1,10 @@
 ios-login-example-for-universal-app
 ===================================
 
-In an iOS universal app, the UISplitViewController has to be the root controller.  This example shows how to do a modal push to a login screen while maximizing code reuse within the universal app.  In the viewWillAppear method of the MasterViewController we check if we are authenticated, and if not we push to the login screen.  
+Assume you want to implement a universal master/detail style iOS app. However, unlike the master/detail the xCode project creation wizard generates for you, there are some additional requirements.
 
-However, if the app is brought up on an iPad in portrait mode, the MasterView will not be displayed by default.  We address this by forcing the MasterView to be displayed in portrait mode the very first time the app is launched. 
+* You want a modal login screen to appear before the master and/or the master/detail (e.g. if you are in landscape on an iPad) shows up.
+
+* If you happen to come up in landscape on an iPad, and the master has no items to display, then you want to swap out the normal detail view in the split view with a different detail split view that indicates there is no data to display, or perhaps just be blank. 
+
+This example app uses a UISplitViewControllerDelegate to customize the out-of-the-box UISplitViewController to accomplish the above.  The code was inspired in part by Apple's MultipleDetailsViews example code. 
