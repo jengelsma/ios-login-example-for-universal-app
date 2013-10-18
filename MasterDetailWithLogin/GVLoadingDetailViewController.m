@@ -51,6 +51,7 @@
 // -------------------------------------------------------------------------------
 - (void)setNavigationPaneBarButtonItem:(UIBarButtonItem *)navigationPaneBarButtonItem
 {
+    // Note: this is view is not in a nav controller, but we've given it a toolbar. 
     if (navigationPaneBarButtonItem != _navigationPaneBarButtonItem) {
         if (navigationPaneBarButtonItem)
             [self.toolbar setItems:[NSArray arrayWithObject:navigationPaneBarButtonItem] animated:NO];

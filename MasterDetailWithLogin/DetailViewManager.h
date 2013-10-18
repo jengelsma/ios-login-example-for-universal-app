@@ -9,6 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class GVLoadingDetailViewController;
+@class GVDetailViewController;
+
 /*
  SubstitutableDetailViewController defines the protocol that detail view controllers must adopt.
  The protocol specifies aproperty for the bar button item controlling the navigation pane.
@@ -28,10 +31,10 @@
 @property (nonatomic, assign) IBOutlet UIViewController<SubstitutableDetailViewController> *detailViewController;
 
 // This controller will be displayed whenever we are waiting for data to display.
-@property (strong, nonatomic) UIViewController<SubstitutableDetailViewController>* loadingDetailViewController;
+@property (strong, nonatomic) GVLoadingDetailViewController* loadingDetailViewController;
 
 // This controller will be displayed whenever we have data to display.
-@property (strong, nonatomic) UIViewController<SubstitutableDetailViewController> *loadedDetailViewController;
+@property (strong, nonatomic) GVDetailViewController *loadedDetailViewController;
 
 // This is the nav controller that will contain the loadedDetailViewController.
 @property (strong, nonatomic) UINavigationController *detailNavCtrl;

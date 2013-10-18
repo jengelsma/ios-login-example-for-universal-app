@@ -109,9 +109,9 @@
 				9E32DD15180ECA2A00D38DD4 /* GVLoadingDetailViewController.m */,
 				9E9FD1DB17DA502500A3D1EC /* GVDetailViewController.h */,
 				9E9FD1DC17DA502500A3D1EC /* GVDetailViewController.m */,
-				9E9FD1C117DA502500A3D1EC /* Supporting Files */,
 				9E9FD1E317DA514E00A3D1EC /* GVLoginViewController.h */,
 				9E9FD1E417DA514E00A3D1EC /* GVLoginViewController.m */,
+				9E9FD1C117DA502500A3D1EC /* Supporting Files */,
 			);
 			path = MasterDetailWithLogin;
 			sourceTree = "<group>";

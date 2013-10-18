@@ -42,15 +42,15 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         
         // store the "normal" detail view and its containing nav controller as props for future convenience.
-        self.detailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-        self.detailNavCtrl = (UINavigationController *) [self.splitViewController.viewControllers lastObject];
+        self.detailViewManager.loadedDetailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+        self.detailViewManager.detailNavCtrl = (UINavigationController *) [self.splitViewController.viewControllers lastObject];
         
-        // tell the mgr about the detail, so buttons get added if needed.
-        self.detailViewManager.detailViewController = self.detailViewController;
+        // tell the mgr about the detail, so buttons get added if needed.  We default with the loadedDetailViewController.
+        self.detailViewManager.detailViewController = self.detailViewManager.loadedDetailViewController;
         
         // load up the alternate loading detail... we'll need it shortly!
-        self.loadingDetailViewController = (GVLoadingDetailViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"LoadingDetailViewController"];
-        [self.loadingDetailViewController view]; // force the outlets to be bound.
+        self.detailViewManager.loadingDetailViewController = (GVLoadingDetailViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"LoadingDetailViewController"];
+        [self.detailViewManager.loadingDetailViewController view]; // force the outlets to be bound.
     }
     
 }
@@ -59,7 +59,6 @@
 {
     [super viewWillAppear:animated];
     if(![(GVAppDelegate*)[[UIApplication sharedApplication] delegate] authenticated])
-    //if(!self.authenticated)
     {
         NSLog(@"not authenticated, put up login screen.");
         UIStoryboard *storyboard;
@@ -105,8 +104,8 @@
     // to reload if necessary.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         if(_objects.count == 1) {
-            self.detailViewController.detailItem = [_objects objectAtIndex:0];
-            self.detailViewManager.detailViewController = self.detailViewController;
+            self.detailViewManager.loadedDetailViewController.detailItem = [_objects objectAtIndex:0];
+            self.detailViewManager.detailViewController = self.detailViewManager.loadedDetailViewController;
         }
     }
 }
@@ -127,12 +126,13 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
+    // TODO: do we really need this?
     // on iPad, replace the loading detail view if we now have  data.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UIViewController *vc = [self.splitViewController.viewControllers lastObject];
         if((_objects.count > 0) && ([vc class] ==  [GVLoadingDetailViewController class])) {
             NSLog(@"We have data, replacing detail view with normal view.");
-            self.detailViewManager.detailViewController = self.detailViewController;
+            self.detailViewManager.detailViewController = self.detailViewManager.loadedDetailViewController;
         }
     }
     NSDate *object = _objects[indexPath.row];
@@ -156,7 +156,7 @@
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             if(_objects.count == 0 )
             {
-                self.detailViewManager.detailViewController = self.loadingDetailViewController;
+                self.detailViewManager.detailViewController = self.detailViewManager.loadingDetailViewController;
             }
         }
         
@@ -185,7 +185,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         NSDate *object = _objects[indexPath.row];
-        self.detailViewController.detailItem = object;
+        self.detailViewManager.loadedDetailViewController.detailItem = object;
     }
 }
 

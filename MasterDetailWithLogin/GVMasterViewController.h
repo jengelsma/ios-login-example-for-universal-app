@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "DetailViewManager.h"
 
-@class GVLoadingDetailViewController;
-@class GVDetailViewController;
-
 @interface GVMasterViewController : UITableViewController
-@property (strong, nonatomic) GVLoadingDetailViewController* loadingDetailViewController;
-@property (strong, nonatomic) GVDetailViewController *detailViewController;
-@property (strong, nonatomic) UINavigationController *detailNavCtrl;
 @property (strong, nonatomic) DetailViewManager *detailViewManager;
 @end

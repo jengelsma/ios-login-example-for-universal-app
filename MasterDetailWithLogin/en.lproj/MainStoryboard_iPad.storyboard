@@ -175,17 +175,17 @@
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kab-gK-cYs">
-                                <rect key="frame" x="374" y="356" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kab-gK-cYs">
+                                <rect key="frame" x="374" y="362" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CVY-uc-TXl">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVY-uc-TXl">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items/>
                             </toolbar>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This detail view will stay here until there is data.  Add a record in master and different view will display. " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="kAu-V9-d2W">
-                                <rect key="frame" x="20" y="476" width="728" height="78"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This detail view will stay here until there is data.  Add a record in master and different view will display. " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="kAu-V9-d2W">
+                                <rect key="frame" x="20" y="482" width="728" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -193,6 +193,16 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CVY-uc-TXl" firstAttribute="leading" secondItem="TSH-40-Mxc" secondAttribute="leading" id="QSe-JW-nQI"/>
+                            <constraint firstItem="kAu-V9-d2W" firstAttribute="top" secondItem="kab-gK-cYs" secondAttribute="bottom" constant="100" id="iJW-1j-NLg"/>
+                            <constraint firstAttribute="centerX" secondItem="kab-gK-cYs" secondAttribute="centerX" id="l4u-pP-5tK"/>
+                            <constraint firstAttribute="trailing" secondItem="kAu-V9-d2W" secondAttribute="trailing" constant="20" symbolic="YES" id="n4g-ir-1ZG"/>
+                            <constraint firstAttribute="centerY" secondItem="kAu-V9-d2W" secondAttribute="centerY" id="nUa-a0-RWI"/>
+                            <constraint firstItem="CVY-uc-TXl" firstAttribute="top" secondItem="TSH-40-Mxc" secondAttribute="top" id="pZV-Ys-PtO"/>
+                            <constraint firstItem="kAu-V9-d2W" firstAttribute="leading" secondItem="TSH-40-Mxc" secondAttribute="leading" constant="20" symbolic="YES" id="rPc-65-uZZ"/>
+                            <constraint firstAttribute="trailing" secondItem="CVY-uc-TXl" secondAttribute="trailing" id="ybb-PH-TnZ"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="loadingIndicator" destination="kab-gK-cYs" id="Fcv-pb-J5Y"/>

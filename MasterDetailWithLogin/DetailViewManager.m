@@ -47,9 +47,7 @@
     if ([detailViewController class] ==  [GVLoadingDetailViewController class]) {
         topLevelController = _detailViewController;
     } else {
-        GVMasterViewController *master = (GVMasterViewController*)[[self.splitViewController.viewControllers firstObject] topViewController];
-        //topLevelController = [[UINavigationController alloc] initWithRootViewController:_detailViewController];
-        topLevelController = [master detailNavCtrl];
+        topLevelController = self.detailNavCtrl;
     }
     
     // Update the split view controller's view controllers array.

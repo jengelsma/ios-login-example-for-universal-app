@@ -53,30 +53,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)
-       && ![(GVAppDelegate*)[[UIApplication sharedApplication] delegate] authenticated])
-    {
-        // display login screen if we are not authenticated.
-        NSLog(@"not authenticated and in portrait, put up login screen.");
-        UIStoryboard *storyboard;
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil];
-        } else {
-            storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-        }
-        GVLoginViewController *vc =  (GVLoginViewController*)[storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
-        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self presentViewController:vc animated:NO completion:nil];
-    } else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        // Load an alternate view if we dont have any data.
-        if(self.detailItem == nil) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil];
-            NSLog(@"Alternate detail view will load");
-            GVLoadingDetailViewController* lvc =(GVLoadingDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:@"LoadingDetailViewController"];
-            [lvc view];  // forces the subview outlets to be bound
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        
+        // if we are in portrait mode and we are not authenticated, we need to invoke the login screen.
+        // Note that this is necessary because in portrait mode, the master view's viewWillAppear will not
+        // be called until its popover is displayed.
+        if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)
+           && ![(GVAppDelegate*)[[UIApplication sharedApplication] delegate] authenticated])
+        {
+            // display login screen if we are not authenticated.
+            NSLog(@"Not authenticated and in portrait, put up login screen.");
+            GVLoginViewController *vc =  (GVLoginViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
+            [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+            [self presentViewController:vc animated:NO completion:nil];
+            
+        } else if(self.detailItem == nil) {
+            // display the alternate view if we have no data.
+            NSLog(@"No data! loading detail view will appear as alternate until we have data.");
             DetailViewManager* dvm = (DetailViewManager*)self.splitViewController.delegate;
-            dvm.detailViewController = lvc;
+            dvm.detailViewController = dvm.loadingDetailViewController;
         }
     }
 }
