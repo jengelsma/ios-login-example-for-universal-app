@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface GVDetailViewController : UIViewController <UISplitViewControllerDelegate>
+#include "DetailViewManager.h"
+@interface GVDetailViewController : UIViewController <SubstitutableDetailViewController>
 
 @property (strong, nonatomic) id detailItem;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+/// SubstitutableDetailViewController
+@property (nonatomic, retain) UIBarButtonItem *navigationPaneBarButtonItem;
 @end

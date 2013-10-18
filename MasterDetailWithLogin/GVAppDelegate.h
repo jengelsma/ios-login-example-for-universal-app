@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GVAppDelegate : UIResponder <UIApplicationDelegate>
-
+@property (nonatomic) BOOL authenticated;
 @property (strong, nonatomic) UIWindow *window;
 
 @end

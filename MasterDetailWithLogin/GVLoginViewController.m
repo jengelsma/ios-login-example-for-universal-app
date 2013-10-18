@@ -7,6 +7,7 @@
 //
 
 #import "GVLoginViewController.h"
+#import "GVAppDelegate.h"
 
 @interface GVLoginViewController ()
 
@@ -36,12 +37,9 @@
 }
 
 - (IBAction)loginPressed:(id)sender {
-    self.masterCtrl.authenticated = YES;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
-        && UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
-    {
-        [self.delegate masterViewPopOverWillAppear];
-    }
+    // once login button is pressed, we update our global authentication flag. 
+    GVAppDelegate *ad = (GVAppDelegate*)[[UIApplication sharedApplication] delegate];
+    ad.authenticated = YES;
     [self dismissViewControllerAnimated:NO completion:nil];
     
 }

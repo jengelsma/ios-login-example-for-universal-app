@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E32DD16180ECA2A00D38DD4 /* GVLoadingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E32DD15180ECA2A00D38DD4 /* GVLoadingDetailViewController.m */; };
+		9E32DD19180ECACF00D38DD4 /* DetailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E32DD18180ECACF00D38DD4 /* DetailViewManager.m */; };
 		9E9FD1BB17DA502500A3D1EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9FD1BA17DA502500A3D1EC /* UIKit.framework */; };
 		9E9FD1BD17DA502500A3D1EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9FD1BC17DA502500A3D1EC /* Foundation.framework */; };
 		9E9FD1BF17DA502500A3D1EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9FD1BE17DA502500A3D1EC /* CoreGraphics.framework */; };
@@ -24,6 +26,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E32DD14180ECA2A00D38DD4 /* GVLoadingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVLoadingDetailViewController.h; sourceTree = "<group>"; };
+		9E32DD15180ECA2A00D38DD4 /* GVLoadingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLoadingDetailViewController.m; sourceTree = "<group>"; };
+		9E32DD17180ECACF00D38DD4 /* DetailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewManager.h; sourceTree = "<group>"; };
+		9E32DD18180ECACF00D38DD4 /* DetailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewManager.m; sourceTree = "<group>"; };
 		9E9FD1B717DA502500A3D1EC /* MasterDetailWithLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterDetailWithLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9FD1BA17DA502500A3D1EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9E9FD1BC17DA502500A3D1EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,12 +97,16 @@
 		9E9FD1C017DA502500A3D1EC /* MasterDetailWithLogin */ = {
 			isa = PBXGroup;
 			children = (
+				9E32DD17180ECACF00D38DD4 /* DetailViewManager.h */,
+				9E32DD18180ECACF00D38DD4 /* DetailViewManager.m */,
 				9E9FD1C917DA502500A3D1EC /* GVAppDelegate.h */,
 				9E9FD1CA17DA502500A3D1EC /* GVAppDelegate.m */,
 				9E9FD1D217DA502500A3D1EC /* MainStoryboard_iPhone.storyboard */,
 				9E9FD1D517DA502500A3D1EC /* MainStoryboard_iPad.storyboard */,
 				9E9FD1D817DA502500A3D1EC /* GVMasterViewController.h */,
 				9E9FD1D917DA502500A3D1EC /* GVMasterViewController.m */,
+				9E32DD14180ECA2A00D38DD4 /* GVLoadingDetailViewController.h */,
+				9E32DD15180ECA2A00D38DD4 /* GVLoadingDetailViewController.m */,
 				9E9FD1DB17DA502500A3D1EC /* GVDetailViewController.h */,
 				9E9FD1DC17DA502500A3D1EC /* GVDetailViewController.m */,
 				9E9FD1C117DA502500A3D1EC /* Supporting Files */,
@@ -191,8 +201,10 @@
 				9E9FD1C717DA502500A3D1EC /* main.m in Sources */,
 				9E9FD1CB17DA502500A3D1EC /* GVAppDelegate.m in Sources */,
 				9E9FD1DA17DA502500A3D1EC /* GVMasterViewController.m in Sources */,
+				9E32DD16180ECA2A00D38DD4 /* GVLoadingDetailViewController.m in Sources */,
 				9E9FD1DD17DA502500A3D1EC /* GVDetailViewController.m in Sources */,
 				9E9FD1E517DA514E00A3D1EC /* GVLoginViewController.m in Sources */,
+				9E32DD19180ECACF00D38DD4 /* DetailViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +337,7 @@
 				9E9FD1E217DA502500A3D1EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

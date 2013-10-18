@@ -9,6 +9,4 @@
 #import <UIKit/UIKit.h>
 #import "GVMasterViewController.h"
 @interface GVLoginViewController : UIViewController
-@property (strong, nonatomic) GVMasterViewController *masterCtrl;
-@property (strong,nonatomic) id <MasterViewDelegate> delegate;
 @end

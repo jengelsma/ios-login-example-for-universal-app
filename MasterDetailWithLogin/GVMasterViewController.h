@@ -7,15 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol MasterViewDelegate <NSObject>
-@required
-- (void) masterViewPopOverWillAppear;
-@end
+#import "DetailViewManager.h"
 
+@class GVLoadingDetailViewController;
 @class GVDetailViewController;
 
-@interface GVMasterViewController : UITableViewController<MasterViewDelegate>
+@interface GVMasterViewController : UITableViewController
+@property (strong, nonatomic) GVLoadingDetailViewController* loadingDetailViewController;
 @property (strong, nonatomic) GVDetailViewController *detailViewController;
-@property (nonatomic) BOOL authenticated;
--(void) masterViewPopOverWillAppear;
+@property (strong, nonatomic) UINavigationController *detailNavCtrl;
+@property (strong, nonatomic) DetailViewManager *detailViewManager;
 @end

@@ -8,6 +8,8 @@
 
 #import "GVDetailViewController.h"
 #import "GVLoginViewController.h"
+#import "GVLoadingDetailViewController.h"
+#import "GVAppDelegate.h"
 
 @interface GVDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -46,15 +48,38 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    //If in portrait mode, display the master view
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.navigationItem.leftBarButtonItem.target performSelector:self.navigationItem.leftBarButtonItem.action withObject:self.navigationItem];
-    }
-#pragma clang diagnostic pop
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)
+       && ![(GVAppDelegate*)[[UIApplication sharedApplication] delegate] authenticated])
+    {
+        // display login screen if we are not authenticated.
+        NSLog(@"not authenticated and in portrait, put up login screen.");
+        UIStoryboard *storyboard;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil];
+        } else {
+            storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+        }
+        GVLoginViewController *vc =  (GVLoginViewController*)[storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
+        [vc setModalPresentationStyle:UIModalPresentationFullScreen];
+        [self presentViewController:vc animated:NO completion:nil];
+    } else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        // Load an alternate view if we dont have any data.
+        if(self.detailItem == nil) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil];
+            NSLog(@"Alternate detail view will load");
+            GVLoadingDetailViewController* lvc =(GVLoadingDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:@"LoadingDetailViewController"];
+            [lvc view];  // forces the subview outlets to be bound
+            DetailViewManager* dvm = (DetailViewManager*)self.splitViewController.delegate;
+            dvm.detailViewController = lvc;
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -62,20 +87,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Split view
+#pragma mark -
+#pragma mark SubstitutableDetailViewController
 
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+// -------------------------------------------------------------------------------
+//	setNavigationPaneBarButtonItem:
+//  Custom implementation for the navigationPaneBarButtonItem setter.
+//  In addition to updating the _navigationPaneBarButtonItem ivar, it
+//  reconfigures the toolbar to either show or hide the
+//  navigationPaneBarButtonItem.
+// -------------------------------------------------------------------------------
+- (void)setNavigationPaneBarButtonItem:(UIBarButtonItem *)navigationPaneBarButtonItem
 {
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-    self.masterPopoverController = popoverController;
+    [self.navigationItem setLeftItemsSupplementBackButton:YES];
+    if (navigationPaneBarButtonItem != _navigationPaneBarButtonItem) {
+        if (navigationPaneBarButtonItem) {
+            [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObject:navigationPaneBarButtonItem]  animated:NO];
+        } else {
+            [self.navigationItem setLeftBarButtonItem:nil animated:NO];
+        }
+        _navigationPaneBarButtonItem = navigationPaneBarButtonItem;
+    }
 }
 
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    self.masterPopoverController = nil;
-}
+
 
 @end

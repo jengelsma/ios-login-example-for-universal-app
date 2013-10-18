@@ -9,6 +9,8 @@
 #import "GVMasterViewController.h"
 #import "GVDetailViewController.h"
 #import "GVLoginViewController.h"
+#import "GVLoadingDetailViewController.h"
+#import "GVAppDelegate.h"
 
 @interface GVMasterViewController () {
     NSMutableArray *_objects;
@@ -19,10 +21,10 @@
 
 - (void)awakeFromNib
 {
-    self.authenticated = NO;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+        self.detailViewManager = [[DetailViewManager alloc] init];
     }
     [super awakeFromNib];
 }
@@ -35,18 +37,31 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
     
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        
+        // store the "normal" detail view and its containing nav controller as props for future convenience.
+        self.detailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+        self.detailNavCtrl = (UINavigationController *) [self.splitViewController.viewControllers lastObject];
+        
+        // tell the mgr about the detail, so buttons get added if needed.
+        self.detailViewManager.detailViewController = self.detailViewController;
+        
+        // load up the alternate loading detail... we'll need it shortly!
+        self.loadingDetailViewController = (GVLoadingDetailViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"LoadingDetailViewController"];
+        [self.loadingDetailViewController view]; // force the outlets to be bound.
+    }
     
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(!self.authenticated) 
+    if(![(GVAppDelegate*)[[UIApplication sharedApplication] delegate] authenticated])
+    //if(!self.authenticated)
     {
-        //[self performSegueWithIdentifier:@"showLogin" sender:self];
+        NSLog(@"not authenticated, put up login screen.");
         UIStoryboard *storyboard;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil];
@@ -55,12 +70,10 @@
         }
         GVLoginViewController *vc =  (GVLoginViewController*)[storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
         [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-        vc.masterCtrl = self;
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            vc.delegate = self;
-        }
         [self presentViewController:vc animated:NO completion:nil];
     }
+
+
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -71,12 +84,6 @@
         NSDate *object = _objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
-    /*
-    else if ([[segue identifier] isEqualToString:@"showLogin"]) {
-        GVLoginViewController *loginCtrl = (GVLoginViewController*)[segue destinationViewController];
-        loginCtrl.masterCtrl = self;
-    }
-     */
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,15 +100,15 @@
     [_objects insertObject:[NSDate date] atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-#pragma mark - MasterViewDelegate
-/* This method will be called in portrait mode when the app is forced to start with the popover open.  
-   This is needed because the MasterView's viewWillAppear method will NOT get recalled after login, like
-   it does in landscape mode. */
--(void) masterViewPopOverWillAppear
-{
-    NSLog(@"masterViewPopOverWillAppear has been called!");
+    
+    // on iPad, when we add our first item we want to force the detail page
+    // to reload if necessary.
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        if(_objects.count == 1) {
+            self.detailViewController.detailItem = [_objects objectAtIndex:0];
+            self.detailViewManager.detailViewController = self.detailViewController;
+        }
+    }
 }
 
 #pragma mark - Table View
@@ -119,7 +126,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
+    
+    // on iPad, replace the loading detail view if we now have  data.
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UIViewController *vc = [self.splitViewController.viewControllers lastObject];
+        if((_objects.count > 0) && ([vc class] ==  [GVLoadingDetailViewController class])) {
+            NSLog(@"We have data, replacing detail view with normal view.");
+            self.detailViewManager.detailViewController = self.detailViewController;
+        }
+    }
     NSDate *object = _objects[indexPath.row];
     cell.textLabel.text = [object description];
     return cell;
@@ -136,6 +151,15 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // on iPad, after delete if we have no data, we switch back to our loading detail view.
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            if(_objects.count == 0 )
+            {
+                self.detailViewManager.detailViewController = self.loadingDetailViewController;
+            }
+        }
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
